@@ -17,7 +17,7 @@ class Organisation(models.Model):
         return self.organ_name
 
 class Candidate(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     stu_name = models.CharField(max_length = 100)
     age = models.IntegerField(default = 20)
     sslc_percent = models.IntegerField(default = 50)
@@ -33,7 +33,7 @@ class Candidate(models.Model):
         return self.stu_name
 
 class JobPosting(models.Model):
-    company =models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    company = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     role_name = models.CharField(max_length = 100)
     location = models.CharField(max_length = 100)
     who_can_apply = models.TextField()
