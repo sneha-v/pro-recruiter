@@ -24,9 +24,13 @@ class PostingViewset(viewsets.ModelViewSet):
     queryset = JobPosting.objects.all()
     serializer_class = JobPostingSerializer
 
-class StuDashboardViewset(viewsets.ModelViewSet):
-    queryset = ApplicationStatus.objects.all()
-    serializer_class = StatusSerializer
+class StuDashboardViewset(viewsets.ViewSet):
+    def list(self, request):
+        user = Candidate.objects.get(pk = request.user.id)
+        print(user)
+        queryset = ApplicationStatus.objects.filter(candidate = user)
+        status = StatusSerializer(queryset, many = True)
+        return Response(status.data)
 
 class ApplyJobViewset(viewsets.ViewSet):
     def create(self, request):
@@ -54,6 +58,15 @@ class ApplyJobViewset(viewsets.ViewSet):
         resume = resume,
         )
         applyjob.save()
+        candidate = applyjob
+        company = Organisation.objects.filter(admin_name = request.user)
+        status = 'a'
+        app_status = ApplicationStatus.objects.create(
+        candidate = candidate,
+        company = company,
+        status = status
+        )
+        app_status.save()
         return Response({'alert':'successfully added'})
 
 class AddJobViewset(viewsets.ViewSet):
@@ -117,3 +130,13 @@ class RegisterViewset(viewsets.ViewSet):
             return Response({'alert':'successfully added'})
         except:
             return Response({"alert":"username already exists"})
+
+class ApplicantViewset(viewsets.ViewSet):
+    def list(self, request):
+        user = request.user
+        organisation = Organisation.objects.filter(admin_name = user).first()
+        status = ApplicationStatus.objects.filter(company = organisation, status = 'a')
+        candidates = [app.candidate for app in status]
+        print(candidates)
+        candidate = CandidateSerializer(candidates, many=True)
+        return Response(candidate.data)

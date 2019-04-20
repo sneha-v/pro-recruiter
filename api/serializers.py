@@ -56,11 +56,11 @@ class ForJobPostingSerializer(serializers.ModelSerializer):
         depth = 1
 
 class ForStatusSerializer(serializers.ModelSerializer):
-    job_posting = ForJobPostingSerializer()
+    company = ForOrganStatusSerializer()
     candidate = ForCandidateSerializer()
     class Meta:
         model = ApplicationStatus
-        fields = ('job_posting', 'status', 'candidate',)
+        fields = ('company', 'status', 'candidate',)
         depth=1
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -75,12 +75,13 @@ class JobPostingSerializer(serializers.ModelSerializer):
         depth=1
 
 class StatusSerializer(serializers.ModelSerializer):
-    job_posting = JobPostingSerializer()
+    company = OrganisationSerializer()
     candidate = CandidateSerializer()
     class Meta:
         model = ApplicationStatus
-        fields = ('job_posting', 'status', 'candidate',)
+        fields = ('company', 'status', 'candidate',)
         depth=1
+
 
 # class ApplyJobSerializer(serializers.ModelSerializer):
 #     user = UserSerializer()
