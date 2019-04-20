@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ProRecruiter</title>
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+  </head>
+  <body>
+    <!-- Start of Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#">Pro Recuiter</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            
+            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#LoginModal">Login</a>
+            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#SSignupModal">SSignUp</a>
+            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#RSignupModal">RSignUp</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End of Navbar -->
+    <!-- Main Container -->
+    <div class="container">
+      
+    </div>
+    <!-- End of Main Container -->
+    <!-- Login Modal -->
+    <div class="modal" id="LoginModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="login-username">Username</label>
+              <input class="form-control" type="text" id="login-username">
+            </div>
+            <div class="form-group">
+              <label for="login-email">Password</label>
+              <input class="form-control" type="password" id="login-password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-md btn-success" id="login-btn">Login</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- End of Login Modal -->
+    <!-- Signup Modal -->
+    <div class="modal" id="SSignupModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">SSignUp</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="ssignup-fname">First Name</label>
+              <input class="form-control" type="text" id="ss-fname">
+            </div>
+            <div class="form-group">
+              <label for="ssignup-lname">Last Name</label>
+              <input class="form-control" type="text" id="ss-lname">
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+              <label for="ssignup-username">Username</label>
+              <input class="form-control" type="text" id="ss-username">
+            </div>
+              <label for="ssignup-email">Email</label>
+              <input class="form-control" type="email" id="ss-email">
+            </div>
+            <div class="form-group">
+              <label for="ssignup-password">Password</label>
+              <input class="form-control" type="password" id="ss-password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-md btn-success" id="ss-btn">RSign Up</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+     <div class="modal" id="RSignupModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">RSignUp</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="rsignup-fname">First Name</label>
+              <input class="form-control" type="text" id="rs-fname">
+            </div>
+            <div class="form-group">
+              <label for="rsignup-lname">Last Name</label>
+              <input class="form-control" type="text" id="rs-lname">
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+              <label for="rsignup-username">Username</label>
+              <input class="form-control" type="text" id="rs-username">
+            </div>
+              <label for="rsignup-email">Email</label>
+              <input class="form-control" type="email" id="rs-email">
+            </div>
+            <div class="form-group">
+              <label for="rsignup-password">Organisation</label>
+              <input class="form-control" type="text" id="rs-org">
+            </div>
+            <div class="form-group">
+              <label for="rsignup-password">About Organisation</label>
+              <input class="form-control" type="text" id="rs-ab">
+            </div>
+            <div class="form-group">
+              <label for="rsignup-password">Password</label>
+              <input class="form-control" type="password" id="rs-password">
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-md btn-success" id=rs-btn>RSign Up</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- End of Signup Modal -->
+    <!-- JS Scripts -->
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- End of JS Scripts -->
+
+    <script src="/static/js/index.js"></script>
+  </body>
+</html>
