@@ -1,0 +1,32 @@
+.p1{
+	margin: 50px;
+	padding: 100px;
+	text-align: center;
+ font-family: 'Cinzel', serif;
+}
+.p2{
+	background-color: #38ada9
+
+}
+.b1{
+	margin-left:1000px;
+	line-height: 20px;
+	color: #ffffff;
+	padding: 2px;
+	
+
+}
+.b2{
+	margin-right:500px;
+	line-height: 20px;
+	color:#ffffff;
+	padding: 2px;
+
+
+}
+.p3{
+	text-align: center;
+	line-height: 20px;
+	color: #ffffff;
+	padding: 10px;
+}
