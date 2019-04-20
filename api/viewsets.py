@@ -26,7 +26,7 @@ class PostingViewset(viewsets.ModelViewSet):
 
 class StuDashboardViewset(viewsets.ModelViewSet):
     queryset = ApplicationStatus.objects.all()
-    serializer_class = ForStatusSerializer
+    serializer_class = StatusSerializer
 
 class ApplyJobViewset(viewsets.ViewSet):
     def create(self, request):
@@ -54,13 +54,12 @@ class ApplyJobViewset(viewsets.ViewSet):
         resume = resume,
         )
         applyjob.save()
-        return Response({'alert':'created'})
+        return Response({'alert':'successfully added'})
 
 class AddJobViewset(viewsets.ViewSet):
     def create(self, request):
-        admin_name = User.objects.get(id = request.user.id)
-        print(admin_name)
-        company = Organisation.objects.filter(admin_name = admin_name)
+        admin = User.objects.get(id = request.user.id)
+        company = Organisation.objects.filter(admin_name = admin)
         role_name = request.data['role_name']
         location = request.data['location']
         who_can_apply = request.data['who_can_apply']
@@ -70,7 +69,7 @@ class AddJobViewset(viewsets.ViewSet):
         vacancy = request.data['vacancy']
 
         addjob = JobPosting.objects.create(
-        company = company,
+        company = company[0],
         role_name = role_name,
         location = location,
         who_can_apply = who_can_apply,
@@ -81,4 +80,36 @@ class AddJobViewset(viewsets.ViewSet):
         )
 
         addjob.save()
-        return Response({"alert":"success"})
+        return Response({"alert":"successfully added"})
+
+class RegisterViewset(viewsets.ViewSet):
+    def create(self , request):
+        username = request.data['username']
+        email = request.data['email']
+        password = request.data['password']
+        first_name = request.data['first_name']
+        last_name = request.data['last_name']
+        user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                )
+        user_type = request.data['user_type']
+        profile = Profile.objects.create(
+        user = user,
+        user_type = user_type,
+        )
+        profile.save()
+        if request.data['user_type'] == 1:
+            admin_name = user
+            organ_name = request.data['organ_name']
+            about_company = request.data['about_company']
+            organisation = Organisation.objects.create(
+            admin_name = admin_name,
+            organ_name = organ_name,
+            about_company = about_company,
+            )
+            organisation.save()
+        return Response({'alert':'successfully added'})

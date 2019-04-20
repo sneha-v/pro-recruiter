@@ -6,7 +6,7 @@ USER_TYPE = ((1,"RECRUITER"),(2,"STUDENT"))
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete = models.CASCADE)
-    user_type = models.IntegerField(choices=USER_TYPE, default=1)
+    user_type = models.IntegerField(choices=USER_TYPE, default=2)
 
 class Organisation(models.Model):
     admin_name = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -71,7 +71,7 @@ class JobPostingSerializer(serializers.ModelSerializer):
     company = OrganisationSerializer()
     class Meta:
         model = JobPosting
-        fields = ('company', 'role_name',)
+        fields = ('company','role_name','location','who_can_apply','salary','skills_req','apply_by','vacancy',)
         depth=1
 
 class StatusSerializer(serializers.ModelSerializer):
