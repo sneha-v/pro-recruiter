@@ -83,33 +83,37 @@ class AddJobViewset(viewsets.ViewSet):
         return Response({"alert":"successfully added"})
 
 class RegisterViewset(viewsets.ViewSet):
+    permission_classes = (AllowAny,)
     def create(self , request):
         username = request.data['username']
         email = request.data['email']
         password = request.data['password']
         first_name = request.data['first_name']
         last_name = request.data['last_name']
-        user = User.objects.create_user(
-                username=username,
-                email=email,
-                password=password,
-                first_name=first_name,
-                last_name=last_name,
-                )
-        user_type = request.data['user_type']
-        profile = Profile.objects.create(
-        user = user,
-        user_type = user_type,
-        )
-        profile.save()
-        if request.data['user_type'] == 1:
-            admin_name = user
-            organ_name = request.data['organ_name']
-            about_company = request.data['about_company']
-            organisation = Organisation.objects.create(
-            admin_name = admin_name,
-            organ_name = organ_name,
-            about_company = about_company,
+        try:
+            user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password,
+                    first_name=first_name,
+                    last_name=last_name,
+                    )
+            user_type = request.data['user_type']
+            profile = Profile.objects.create(
+            user = user,
+            user_type = user_type,
             )
-            organisation.save()
-        return Response({'alert':'successfully added'})
+            profile.save()
+            if request.data['user_type'] == 1:
+                admin_name = user
+                organ_name = request.data['organ_name']
+                about_company = request.data['about_company']
+                organisation = Organisation.objects.create(
+                admin_name = admin_name,
+                organ_name = organ_name,
+                about_company = about_company,
+                )
+                organisation.save()
+            return Response({'alert':'successfully added'})
+        except:
+            return Response({"alert":"username already exists"})
