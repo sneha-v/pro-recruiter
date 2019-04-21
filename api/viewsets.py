@@ -11,10 +11,6 @@ class UserViewset(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
 
-class ProfileViewset(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-
 class CompanyViewset(viewsets.ModelViewSet):
     queryset = Organisation.objects.all()
     serializer_class = OrganisationDetailSerializer
@@ -31,8 +27,9 @@ class StuDashboardViewset(viewsets.ViewSet):
         status = StatusSerializer(queryset, many = True)
         return Response(status.data)
 
-class ApplyJobViewset(viewsets.ViewSet):
+class ProfileViewset(viewsets.ViewSet):
     def create(self, request):
+
         stu_name = request.data['stu_name']
         age = request.data['age']
         sslc_percent = request.data['sslc_percent']
@@ -56,19 +53,22 @@ class ApplyJobViewset(viewsets.ViewSet):
         skills = skills,
         resume = resume,
         )
-        applyjob.save()
-        candidate = applyjob
-        organisation = Organisation.objects.get(organ_name =request.data['company_name'])
-        jobposting = JobPosting.objects.get(company=organisation)
-        company = jobposting
-        status = 'a'
-        app_status = ApplicationStatus.objects.create(
-        candidate = candidate,
-        company = company,
-        status = status
-        )
-        app_status.save()
-        return Response({'alert':'successfully added'})
+        return Response({'alert':'successfully created'})
+
+# class ApplyJobViewset(viewsets.ViewSet):
+#     def
+#         candidate = applyjob
+#         organisation = Organisation.objects.get(organ_name =request.data['company_name'])
+#         jobposting = JobPosting.objects.get(company=organisation).first()
+#         company = jobposting
+#         status = 'a'
+#         app_status = ApplicationStatus.objects.create(
+#         candidate = candidate,
+#         company = company,
+#         status = status
+#         )
+#         app_status.save()
+#         return Response({'alert':'successfully added'})
 
 class AddJobViewset(viewsets.ViewSet):
     def create(self, request):
