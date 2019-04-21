@@ -161,3 +161,22 @@ class ApplicantFilterViewset(viewsets.ViewSet):
                     candidates.append(item.candidate)
         candidate = CandidateSerializer(candidates, many=True)
         return Response(candidate.data)
+class StatusUpdateViewset(viewsets.ViewSet):
+    def create(self, request):
+        stu_user_id = request.data['id']
+        admin = User.objects.get(id = request.user.id)
+        organisation = Organisation.objects.get(admin_name = admin)
+        jobposting = JobPosting.objects.get(company = organisation)
+        user = User.objects.get(id = stu_user_id)
+        candidate = Candidate.objects.get(user = user)
+        status = ApplicationStatus.objects.filter(candidate = candidate, company =jobposting).update(status = request.data['status'])
+        status.save()
+        return Response({"alert":"successfully updated"})
+
+class ViewJobPostingsViewset(viewsets.ViewSet):
+    def list(self,request):
+        user = User.objects.get(id = request.user.id)
+        organisation = Organisation.objects.get(admin_name = user)
+        jobposting = JobPosting.objects.get(company = organisation)
+        post = JobPostingSerializer(jobposting)
+        return Response(post.data)
