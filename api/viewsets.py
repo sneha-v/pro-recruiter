@@ -42,7 +42,7 @@ class ApplyJobViewset(viewsets.ViewSet):
         aggregate = request.data['aggregate']
         about_me = request.data['about_me']
         skills = request.data['skills']
-        resume = request.data['resume']
+        resume = request.FILES['resume']
         applyjob = Candidate.objects.create(
         user = User.objects.get(id = request.user.id),
         stu_name = stu_name,
@@ -58,8 +58,9 @@ class ApplyJobViewset(viewsets.ViewSet):
         )
         applyjob.save()
         candidate = applyjob
-        organ_company = Organisation.objects.filter(admin_name = request.user)
-        company = JobPosting.objects.filter(company = organ_company)
+        organisation = Organisation.objects.get(organ_name =request.data['company_name'])
+        jobposting = JobPosting.objects.get(company=organisation)
+        company = jobposting
         status = 'a'
         app_status = ApplicationStatus.objects.create(
         candidate = candidate,
@@ -134,23 +135,29 @@ class RegisterViewset(viewsets.ViewSet):
 class ApplicantViewset(viewsets.ViewSet):
     def list(self, request):
         user = request.user
-        organisation = Organisation.objects.filter(admin_name = user).first()
-        status = ApplicationStatus.objects.filter(company = organisation, status='a')
+        organisation = Organisation.objects.get(admin_name = user)
+        jobposting = JobPosting.objects.get(company=organisation)
+        status = ApplicationStatus.objects.filter(company=jobposting, status='a')
         candidates = [app.candidate for app in status]
         candidate = CandidateSerializer(candidates, many=True)
         return Response(candidate.data)
 
-# class ApplicantFilterViewset(viewsets.ViewSet):
-#     def list(self, request):
-#         sslc_percent = request.data['sslc_percent']
-#         pu_percent = request.data['pu_percent']
-#         degree = request.data['degree']
-#         course_name = request.data['course_name']
-#         aggregate = request.data['aggregate']
-#         candidate = Candidate.objects.filter(sslc_percent>=sslc_percent, pu_percent>= pu_percent,degree=degree,course_name= course_name,aggregate>= aggregate)
-#         user = request.user
-#         organisation = Organisation.objects.filter(admin_name = user).first()
-#         status = ApplicationStatus.objects.filter(company = organisation, candidate =candidate, status='a')
-#         candidates = [app.candidate for app in status]
-#         candidate = CandidateSerializer(candidates, many=True)
-#         return Response(candidate.data)
+class ApplicantFilterViewset(viewsets.ViewSet):
+    def list(self, request):
+        sslc_percent = request.data['sslc_percent']
+        pu_percent = request.data['pu_percent']
+        degree = request.data['degree']
+        course_name = request.data['course_name']
+        aggregate = request.data['aggregate']
+        user = request.user
+        organisation = Organisation.objects.get(admin_name = user)
+        jobposting = JobPosting.objects.get(company=organisation)
+        status = ApplicationStatus.objects.filter(company=jobposting, status='a')
+        candidate = Candidate.objects.filter(sslc_percent__gte=sslc_percent, pu_percent__gte=pu_percent,degree=degree,course_name= course_name,aggregate__gte=aggregate)
+        candidates = []
+        for item in status:
+            for cand in candidate:
+                if str(item.candidate) == str(cand.stu_name):
+                    candidates.append(item.candidate)
+        candidate = CandidateSerializer(candidates, many=True)
+        return Response(candidate.data)
