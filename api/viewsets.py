@@ -73,7 +73,7 @@ class ApplyJobViewset(viewsets.ViewSet):
 class AddJobViewset(viewsets.ViewSet):
     def create(self, request):
         admin = User.objects.get(id = request.user.id)
-        company = Organisation.objects.filter(admin_name = admin)
+        company = Organisation.objects.get(admin_name = admin)
         role_name = request.data['role_name']
         location = request.data['location']
         who_can_apply = request.data['who_can_apply']
@@ -83,7 +83,7 @@ class AddJobViewset(viewsets.ViewSet):
         vacancy = request.data['vacancy']
 
         addjob = JobPosting.objects.create(
-        company = company[0],
+        company = company,
         role_name = role_name,
         location = location,
         who_can_apply = who_can_apply,
@@ -170,7 +170,6 @@ class StatusUpdateViewset(viewsets.ViewSet):
         user = User.objects.get(id = stu_user_id)
         candidate = Candidate.objects.get(user = user)
         status = ApplicationStatus.objects.filter(candidate = candidate, company =jobposting).update(status = request.data['status'])
-        status.save()
         return Response({"alert":"successfully updated"})
 
 class ViewJobPostingsViewset(viewsets.ViewSet):
