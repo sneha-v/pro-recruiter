@@ -47,5 +47,5 @@ class JobPosting(models.Model):
 
 class ApplicationStatus(models.Model):
     candidate = models.ForeignKey(Candidate, on_delete = models.CASCADE, null=True)
-    company = models.ForeignKey(Organisation,on_delete = models.CASCADE, null=True)
+    company = models.ForeignKey(JobPosting,on_delete = models.CASCADE, null=True)
     status = models.CharField(max_length = 1)

@@ -26,8 +26,7 @@ class PostingViewset(viewsets.ModelViewSet):
 
 class StuDashboardViewset(viewsets.ViewSet):
     def list(self, request):
-        user = Candidate.objects.get(pk = request.user.id)
-        print(user)
+        user = Candidate.objects.filter(user = request.user).first()
         queryset = ApplicationStatus.objects.filter(candidate = user)
         status = StatusSerializer(queryset, many = True)
         return Response(status.data)
@@ -59,7 +58,8 @@ class ApplyJobViewset(viewsets.ViewSet):
         )
         applyjob.save()
         candidate = applyjob
-        company = Organisation.objects.filter(admin_name = request.user)
+        organ_company = Organisation.objects.filter(admin_name = request.user)
+        company = JobPosting.objects.filter(company = organ_company)
         status = 'a'
         app_status = ApplicationStatus.objects.create(
         candidate = candidate,
@@ -135,8 +135,22 @@ class ApplicantViewset(viewsets.ViewSet):
     def list(self, request):
         user = request.user
         organisation = Organisation.objects.filter(admin_name = user).first()
-        status = ApplicationStatus.objects.filter(company = organisation, status = 'a')
+        status = ApplicationStatus.objects.filter(company = organisation, status='a')
         candidates = [app.candidate for app in status]
-        print(candidates)
         candidate = CandidateSerializer(candidates, many=True)
         return Response(candidate.data)
+
+# class ApplicantFilterViewset(viewsets.ViewSet):
+#     def list(self, request):
+#         sslc_percent = request.data['sslc_percent']
+#         pu_percent = request.data['pu_percent']
+#         degree = request.data['degree']
+#         course_name = request.data['course_name']
+#         aggregate = request.data['aggregate']
+#         candidate = Candidate.objects.filter(sslc_percent>=sslc_percent, pu_percent>= pu_percent,degree=degree,course_name= course_name,aggregate>= aggregate)
+#         user = request.user
+#         organisation = Organisation.objects.filter(admin_name = user).first()
+#         status = ApplicationStatus.objects.filter(company = organisation, candidate =candidate, status='a')
+#         candidates = [app.candidate for app in status]
+#         candidate = CandidateSerializer(candidates, many=True)
+#         return Response(candidate.data)
