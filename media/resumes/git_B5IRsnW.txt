@@ -1,0 +1,11 @@
+git init
+git status
+git add
+git commit -m "sjbvzkxnb"
+git log
+git config --global user.name sneha
+git config --global user.email abc@gmail.com
+git log --oneline
+git checkout <commitid>
+git checkout master - getback to master
+git remote -v - list the files added to remote repository

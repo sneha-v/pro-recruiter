@@ -29,14 +29,13 @@ class StuDashboardViewset(viewsets.ViewSet):
 
 class ProfileViewset(viewsets.ViewSet):
     def create(self, request):
-
         stu_name = request.data['stu_name']
-        age = request.data['age']
-        sslc_percent = request.data['sslc_percent']
-        pu_percent = request.data['pu_percent']
+        age = int(request.data['age'])
+        sslc_percent = float(request.data['sslc_percent'])
+        pu_percent = float(request.data['pu_percent'])
         degree = request.data['degree']
         course_name = request.data['course_name']
-        aggregate = request.data['aggregate']
+        aggregate = float(request.data['aggregate'])
         about_me = request.data['about_me']
         skills = request.data['skills']
         resume = request.FILES['resume']
@@ -46,8 +45,8 @@ class ProfileViewset(viewsets.ViewSet):
         age = age,
         sslc_percent = sslc_percent,
         pu_percent = pu_percent,
-        degree = degree,
-        course_name = course_name,
+        degree = degree.upper(),
+        course_name = course_name.upper(),
         aggregate = aggregate,
         about_me = about_me,
         skills = skills,
@@ -55,20 +54,32 @@ class ProfileViewset(viewsets.ViewSet):
         )
         return Response({'alert':'successfully created'})
 
-# class ApplyJobViewset(viewsets.ViewSet):
-#     def
-#         candidate = applyjob
-#         organisation = Organisation.objects.get(organ_name =request.data['company_name'])
-#         jobposting = JobPosting.objects.get(company=organisation).first()
-#         company = jobposting
-#         status = 'a'
-#         app_status = ApplicationStatus.objects.create(
-#         candidate = candidate,
-#         company = company,
-#         status = status
-#         )
-#         app_status.save()
-#         return Response({'alert':'successfully added'})
+class EditProfileViewset(viewsets.ViewSet):
+    def create(self,request):
+        stu_name = request.data['stu_name']
+        age = int(request.data['age'])
+        sslc_percent = float(request.data['sslc_percent'])
+        pu_percent = float(request.data['pu_percent'])
+        degree = request.data['degree']
+        course_name = request.data['course_name']
+        aggregate = float(request.data['aggregate'])
+        about_me = request.data['about_me']
+        skills = request.data['skills']
+        resume = request.FILES['resume']
+        applyjob = Candidate.objects.get(user = request.user).update(
+        stu_name = stu_name,
+        age = age,
+        sslc_percent = sslc_percent,
+        pu_percent = pu_percent,
+        degree = degree.upper(),
+        course_name = course_name.upper(),
+        aggregate = aggregate,
+        about_me = about_me,
+        skills = skills,
+        resume = resume,
+        )
+        return Response({'alert':'successfully edited'})
+
 
 class AddJobViewset(viewsets.ViewSet):
     def create(self, request):
@@ -153,7 +164,7 @@ class ApplicantFilterViewset(viewsets.ViewSet):
         organisation = Organisation.objects.get(admin_name = user)
         jobposting = JobPosting.objects.get(company=organisation)
         status = ApplicationStatus.objects.filter(company=jobposting, status='a')
-        candidate = Candidate.objects.filter(sslc_percent__gte=sslc_percent, pu_percent__gte=pu_percent,degree=degree,course_name= course_name,aggregate__gte=aggregate)
+        candidate = Candidate.objects.filter(sslc_percent__gte=sslc_percent, pu_percent__gte=pu_percent,degree=degree.upper(),course_name= course_name.upper(),aggregate__gte=aggregate)
         candidates = []
         for item in status:
             for cand in candidate:
@@ -161,6 +172,7 @@ class ApplicantFilterViewset(viewsets.ViewSet):
                     candidates.append(item.candidate)
         candidate = CandidateSerializer(candidates, many=True)
         return Response(candidate.data)
+
 class StatusUpdateViewset(viewsets.ViewSet):
     def create(self, request):
         stu_user_id = request.data['id']
@@ -179,3 +191,16 @@ class ViewJobPostingsViewset(viewsets.ViewSet):
         jobposting = JobPosting.objects.get(company = organisation)
         post = JobPostingSerializer(jobposting)
         return Response(post.data)
+class ApplyJobViewset(viewsets.ViewSet):
+    # permission_classes = (AllowAny,)
+    def create(self,request):
+        candidate_tab = Candidate.objects.get(user = request.user)
+        organisation_name = request.data['organisation_name']
+        organisation = Organisation.objects.get(organ_name = organisation_name)
+        jobposting = JobPosting.objects.get(company = organisation)
+        status = ApplicationStatus.objects.create(
+        candidate = candidate_tab,
+        company = jobposting,
+        status = request.data['status'],
+        )
+        return Response({"alert":"successfully applied"})
