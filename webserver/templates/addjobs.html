@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+</head>
+<body>
+	 <!-- start of nav -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container">
+				<a class="navbar-brand" href="#">Pro Recuiter</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav ml-auto">
+						<a class="nav-item nav-link" href=''  data-target="#Logout">Logout</a>
+            <a class="nav-item nav-link" href='/applicants/'  data-target="#Viewjob">Viewjob</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+    <!-- end of nav -->
+    <!-- start of add jobs -->
+    <div class="container">
+		<div class="form-group">
+
+              <label for="name">Role name</label>
+              <input class="form-control" type="text" id="name">
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input class="form-control" type="text" id="loc">
+            </div>
+              <label for="who-can-apply">who can apply</label>
+              <input class="form-control" type="number" id="app">
+            </div>
+            <div class="form-group">
+              <label for="Skills-required">Skills-required</label>
+              <input class="form-control" type="text" id="skill">
+            </div>
+            <div class="form-group">
+              <label for="salary">Salary</label>
+              <input class="form-control" type="number" id="Salary">
+            </div>
+            <div class="form-group">
+              <label for="vacancy">Vacancy</label>
+              <input class="form-control" type="number" id="vacancy">
+            </div>
+             <div class="form-group">
+              <label for="applied">Applied-by</label>
+              <input class="form-control" type="text" id="app-by">
+            </div>
+             <div class="form-group">
+              <a href="/sdashboard/" class="btn btn-primary" id='su-btn' >submit</a>
+            </div>
+            <!-- end of studentdetails -->
+        </div>
+
+	<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<script src="/static/js/addjobs.js"></script>
+
+</body>
+</html>

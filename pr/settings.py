@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'prorecruiter',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': 'pgp20210',
         'HOST': 'localhost',
         'PORT': '5432',
     }
