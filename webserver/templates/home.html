@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ProRecruiter</title>
+    <title>Pro-Recruiter</title>
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+    <style>
+    body{
+  background-image: url("https://thenextweb.com/wp-content/blogs.dir/1/files/2015/03/computer-laptop-work-office.jpg");
+    }
+    img.bg {
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+  </style>
   </head>
-  <body>
+  <body >
+    <img src="https://thenextweb.com/wp-content/blogs.dir/1/files/2015/03/computer-laptop-work-office.jpg" alt="bckgound" class="bg" />
     <!-- Start of Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand" href="#">Pro Recuiter</a>
+        <a class="navbar-brand" href="#">Pro-Recuiter</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -16,8 +31,8 @@
           <div class="navbar-nav ml-auto">
             
             <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#LoginModal">Login</a>
-            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#SSignupModal">SSignUp</a>
-            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#RSignupModal">RSignUp</a>
+            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#SSignupModal">Student Signup</a>
+            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#RSignupModal">Recruiter Signup</a>
           </div>
         </div>
       </div>
@@ -47,21 +62,21 @@
               <label for="login-email">Password</label>
               <input class="form-control" type="password" id="login-password">
             </div>
-            <div class="form-group">
-              <button class="btn btn-md btn-success" id="login-btn">Login</button>
-            </div>
+            <div class="text-center">
+            <input type="submit" class = "btn btn-success" id="login-btn" style="text-align: center;">
+          </div>
           </div>
           
         </div>
       </div>
     </div>
     <!-- End of Login Modal -->
-    <!-- Signup Modal -->
+    <!-- sSignup Modal -->
     <div class="modal" id="SSignupModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">SSignUp</h5>
+          <div class="modal-header" style="text-align: center;">
+            <h5 class="modal-title">Student Signup</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -87,20 +102,23 @@
               <label for="ssignup-password">Password</label>
               <input class="form-control" type="password" id="ss-password">
             </div>
-            <div class="form-group">
-              <button class="btn btn-md btn-success" id="ss-btn">RSign Up</button>
-            </div>
+            <div class="text-center">
+            <input type="submit" class = "btn btn-success" id="ss-btn" style="text-align: center;">
+          </div>
           </div>
           
         </div>
       </div>
     </div>
+    <!-- end of ssignup -->
+
+    <!-- start of rsignup -->
 
      <div class="modal" id="RSignupModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">RSignUp</h5>
+            <h5 class="modal-title">Recruiter Signup</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -134,16 +152,16 @@
               <label for="rsignup-password">Password</label>
               <input class="form-control" type="password" id="rs-password">
             </div>
-
-            <div class="form-group">
-              <button class="btn btn-md btn-success" id=rs-btn>RSign Up</button>
-            </div>
+          <div class="text-center">
+            <input type="submit" class = "btn btn-success" id="rs-btn" style="text-align: center;">
+          </div>
           </div>
           
         </div>
       </div>
     </div>
-    <!-- End of Signup Modal -->
+    <!-- End of rSignup Modal -->
+
     <!-- JS Scripts -->
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

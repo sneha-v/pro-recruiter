@@ -4,7 +4,17 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from api.serializers import *
 from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 
+class TokenViewset(viewsets.ViewSet):
+    def list(self, request):
+        tok = request.data['token']
+        token = Token.objects.get(key = tok).user
+        profile = Profile.objects.get(user = token).user_type
+        if(profile==1):
+            return Response({"choice":"RECRUITER"})
+        else:
+            return Response({"choice":"STUDENT"})
 
 class UserViewset(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -191,6 +201,36 @@ class ViewJobPostingsViewset(viewsets.ViewSet):
         jobposting = JobPosting.objects.get(company = organisation)
         post = JobPostingSerializer(jobposting)
         return Response(post.data)
+
+    def create(self,request):
+        role_name = request.data['role_name']
+        location = request.data['location']
+        who_can_apply = request.data['who_can_apply']
+        salary = request.data['salary']
+        skills_req = request.data['skills_req']
+        apply_by = request.data['apply_by']
+        vacancy = request.data['vacancy']
+        user = User.objects.get(id = request.user.id)
+        organisation = Organisation.objects.get(admin_name = user)
+        jobposting = JobPosting.objects.get(company = organisation).update(
+        role_name = role_name,
+        location = location,
+        who_can_apply = who_can_apply,
+        salary = salary,
+        skills_req = skills_req,
+        apply_by = apply_by,
+        vacancy = vacancy,
+        )
+        jobposting.save()
+        return Response({"alert":"successfully updated"})
+
+    def destroy(self,request, pk = None):
+        user = User.objects.get(id = pk)
+        organisation = Organisation.objects.get(admin_name = user)
+        jobposting = JobPosting.objects.get(company = organisation).delete()
+        jobposting.save()
+        return Response({"alert":"successfully deleted"})
+
 class ApplyJobViewset(viewsets.ViewSet):
     # permission_classes = (AllowAny,)
     def create(self,request):
