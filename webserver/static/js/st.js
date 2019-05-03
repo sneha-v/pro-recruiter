@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var a = $('#applied');
+	var ap = $('#applied');
 	$.ajax({
 		method: 'GET',
 		url: "http://127.0.0.1:8000/api/sdashboard/",
@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 			for (let applied of response) {
 				console.log(applied.company.company);
-				a.append(`
+				ap.append(`
 						<div class="card">
 						<div class="row">
 						<div class="col-md-7">

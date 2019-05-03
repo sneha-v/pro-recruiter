@@ -7,7 +7,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 
 class TokenViewset(viewsets.ViewSet):
-    def list(self, request):
+    permission_classes = (AllowAny,)
+
+    def create(self, request):
         tok = request.data['token']
         token = Token.objects.get(key = tok).user
         profile = Profile.objects.get(user = token).user_type
@@ -167,14 +169,12 @@ class ApplicantFilterViewset(viewsets.ViewSet):
     def list(self, request):
         sslc_percent = request.data['sslc_percent']
         pu_percent = request.data['pu_percent']
-        degree = request.data['degree']
-        course_name = request.data['course_name']
         aggregate = request.data['aggregate']
         user = request.user
         organisation = Organisation.objects.get(admin_name = user)
         jobposting = JobPosting.objects.get(company=organisation)
         status = ApplicationStatus.objects.filter(company=jobposting, status='a')
-        candidate = Candidate.objects.filter(sslc_percent__gte=sslc_percent, pu_percent__gte=pu_percent,degree=degree.upper(),course_name= course_name.upper(),aggregate__gte=aggregate)
+        candidate = Candidate.objects.filter(sslc_percent__gte=sslc_percent, pu_percent__gte=pu_percent,aggregate__gte=aggregate)
         candidates = []
         for item in status:
             for cand in candidate:
@@ -182,6 +182,22 @@ class ApplicantFilterViewset(viewsets.ViewSet):
                     candidates.append(item.candidate)
         candidate = CandidateSerializer(candidates, many=True)
         return Response(candidate.data)
+class FilterJobViewset(viewsets.ViewSet):
+    def list(self, request):
+        comp = request.data['company']
+        loc = request.data['location']
+        organisation = [Organisation.objects.get(organ_name = i) for i in comp]
+        jobposting1 = [JobPosting.objects.get(company=i) for i in organisation]
+        print(jobposting1)
+        jobposting2 = [JobPosting.objects.get(location = j) for j in loc]
+        print(jobposting2)
+        jobs1 = JobPostingSerializer(jobposting1, many=True)
+        jobs2 = JobPostingSerializer(jobposting2, many=True)
+        serializer = {"jobposting1":jobs1.data,
+                        "jobposting2":jobs2.data}
+        return Response(serializer)        
+
+
 
 class StatusUpdateViewset(viewsets.ViewSet):
     def create(self, request):

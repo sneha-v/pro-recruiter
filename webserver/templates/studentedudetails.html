@@ -151,7 +151,7 @@ span.input-group-addon i {
               <label for="username">10th Percentage</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="username" placeholder="Enter your 10th Percentage"/>
+                  <input type="text" class="form-control" name="ten-perc" id="ten" placeholder="Enter your 10th Percentage"/>
                 </div>
             </div>
 
@@ -159,7 +159,7 @@ span.input-group-addon i {
               <label for="password">12th Percentage</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="password" placeholder="Enter your 12th Percentage"/>
+                  <input type="number" class="form-control" name="twevel" id=pumarks placeholder="Enter your 12th Percentage"/>
                 </div>
             </div>
 
@@ -167,7 +167,7 @@ span.input-group-addon i {
               <label for="confirm">Degree</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="confirm" placeholder="Confirm your Degree"/>
+                  <input type="text" class="form-control" name="degree" id="degree" placeholder="Confirm your Degree"/>
                 </div>
             </div>
             <div class="form-group">
@@ -181,21 +181,21 @@ span.input-group-addon i {
               <label for="name">Aggregate</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-        <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Degree aggregate"/>
+        <input type="number" class="form-control" name="name" id="aggregate"  placeholder="Enter your Degree aggregate"/>
               </div>
             </div>
             <div class="form-group">
               <label for="name">About me</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-        <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+        <input type="text" class="form-control" name="aboutme" id="about-me"  placeholder="Enter your Name"/>
               </div>
             </div>
             <div class="form-group">
               <label for="name">Skills</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-        <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Skills"/>
+        <input type="text" class="form-control" name="skills" id="skills"  placeholder="Enter your Skills"/>
               </div>
             </div>
 
@@ -203,10 +203,11 @@ span.input-group-addon i {
               <label for="name">Resume</label>
                 <div class="input-group"> 
                   <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-        <input type="file" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+        <input type="file" class="form-control" name="resume" id="resume"  placeholder="Enter your Name"/>
               </div>
             </div>
-        <button type="submit">SUBMIT</button>
+            <a href="/sdashboard/"id="sub-btn">Submit</a>
+        <!-- <button type="submit" id="sub-btn">SUBMIT</button> -->
             
           </form>
         </div><!--main-center"-->

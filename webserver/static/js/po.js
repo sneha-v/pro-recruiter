@@ -1,8 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	var postingsdiv = $("#postings");
 	$.ajax({
 		method: 'GET',
 		url: "http://127.0.0.1:8000/api/allposting/",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('Authorization', "Token " + window.localStorage['token']);
+		},
 		success: function(response) {
 			console.log(response);
 
@@ -18,9 +21,9 @@ $(document).ready(function(){
 						<h6 class="card-title" >Remuneration: ₹ ${posting.salary}</h6>
 						</div></div>
 						<div class="col-md-3">
-						<br />
+						<br >
 													<h6 class="card-title" >Location: ${posting.location}</h6>
-													<div class="text-center">
+													<diss="text-centev clar">
             										<input type="submit" class = "btn btn-success" value="Apply" style="text-align: center;">
           											</div>
 
@@ -28,12 +31,9 @@ $(document).ready(function(){
 						
 						</div>
 						</div>
-						<br />
-							`)
+						</br >`);
 			}
-		},
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader('Authorization', "Token " + window.localStorage['token']);
 		}
+
 	});
 });

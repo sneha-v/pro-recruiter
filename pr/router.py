@@ -5,6 +5,7 @@ from api.viewsets import *
 router = routers.DefaultRouter()
 router.register(r'tokenauth', TokenViewset, base_name = 'token')
 router.register(r'user', UserViewset, base_name = 'allusers')
+router.register(r'filterjob',FilterJobViewset, base_name = "filterjobs")
 router.register(r'allposting', PostingViewset, base_name = 'postings')
 router.register(r'sdashboard',StuDashboardViewset, base_name = 'studash')
 router.register(r'profile',ProfileViewset, base_name = 'applyjobs')
